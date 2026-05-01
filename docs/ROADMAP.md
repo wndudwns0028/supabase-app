@@ -77,7 +77,7 @@ types/supabase.ts
 
 ---
 
-### Phase 1: 전체 UI/UX 구현 (더미 데이터 기반)
+### Phase 1: 전체 UI/UX 구현 (더미 데이터 기반) ✅
 
 **완료 기준:** 더미 데이터로 전체 페이지 UI/UX 구현 완료, Supabase 연동 없이 화면 흐름 전체 검증 가능
 
@@ -399,13 +399,59 @@ components/settlements/settlement-item-row.tsx
 
 ---
 
+#### TASK-016: 관리자 페이지 레이아웃 + 개요 대시보드 UI 구현 ✅
+
+> **기능 ID:** F-ADMIN | **상태:** ✅ 완료
+
+- ✅ 어드민 전용 더미 데이터 4종 추가 (`lib/dummy-data.ts`) — AdminUser, AdminTeam, AdminEvent, AdminSettlement
+- ✅ `app/(admin)/layout.tsx` — 어드민 레이아웃 (좌측 사이드바 + 로그인 체크, TODO: is_admin 체크)
+- ✅ `components/admin/admin-sidebar.tsx` — 좌측 내비게이션 (개요/유저/팀/이벤트/정산)
+- ✅ `components/admin/stats-card.tsx` — 통계 카드 컴포넌트 (아이콘 + 라벨 + 숫자)
+- ✅ `app/(admin)/admin/page.tsx` — 개요 대시보드 (통계 카드 4개 + 최근 유저/팀 목록)
+
+**관련 파일/경로**
+
+```
+app/(admin)/layout.tsx
+app/(admin)/admin/page.tsx
+components/admin/admin-sidebar.tsx
+components/admin/stats-card.tsx
+lib/dummy-data.ts
+```
+
+---
+
+#### TASK-017: 관리자 유저·팀·이벤트·정산 목록 페이지 UI 구현 ✅
+
+> **기능 ID:** F-ADMIN | **상태:** ✅ 완료
+
+- ✅ `app/(admin)/admin/users/page.tsx` + `components/admin/users-table.tsx` — 유저 목록 (이메일/이름/가입일/팀 수, 클라이언트 사이드 검색)
+- ✅ `app/(admin)/admin/teams/page.tsx` + `components/admin/teams-table.tsx` — 팀 목록 (팀명/종목/멤버수/이벤트수, 종목 필터)
+- ✅ `app/(admin)/admin/events/page.tsx` + `components/admin/events-table.tsx` — 이벤트 목록 (이벤트명/팀명/일시/참여현황/상태, 상태 탭 필터)
+- ✅ `app/(admin)/admin/settlements/page.tsx` + `components/admin/settlements-table.tsx` — 정산 목록 (이벤트명/팀명/총금액/납부현황/상태, 상태 탭 필터)
+
+**관련 파일/경로**
+
+```
+app/(admin)/admin/users/page.tsx
+app/(admin)/admin/teams/page.tsx
+app/(admin)/admin/events/page.tsx
+app/(admin)/admin/settlements/page.tsx
+components/admin/users-table.tsx
+components/admin/teams-table.tsx
+components/admin/events-table.tsx
+components/admin/settlements-table.tsx
+```
+
+---
+
 ### Phase 2: DB 구축 + API 연동 — 팀 + 이벤트
 
 **완료 기준:** 팀 생성 → 이벤트 생성 → 공유 링크 전달 동작 확인
 
 ---
 
-#### TASK-016: DB 스키마 생성 및 RLS 정책 설정 (teams, team_members, events) ⬜
+#### TASK-018: DB 스키마 생성 및 RLS 정책 설정 (teams, team_members, events) ⬜
 
 > **기능 ID:** F001, F003 (데이터 계층) | **상태:** ⬜ 미시작
 
@@ -436,7 +482,7 @@ types/supabase.ts
 
 ---
 
-#### TASK-017: 팀 서버 액션 + 대시보드 API 연동 ⬜
+#### TASK-019: 팀 서버 액션 + 대시보드 API 연동 ⬜
 
 > **기능 ID:** F001, F010 | **상태:** ⬜ 미시작
 
@@ -466,7 +512,7 @@ app/(dashboard)/teams/new/page.tsx
 
 ---
 
-#### TASK-018: 이벤트 서버 액션 + 팀 홈 API 연동 ⬜
+#### TASK-020: 이벤트 서버 액션 + 팀 홈 API 연동 ⬜
 
 > **기능 ID:** F003, F004 | **상태:** ⬜ 미시작
 
@@ -505,7 +551,7 @@ app/events/[eventId]/page.tsx
 
 ---
 
-#### TASK-019: DB 스키마 생성 및 RLS 정책 설정 (event_participants) ⬜
+#### TASK-021: DB 스키마 생성 및 RLS 정책 설정 (event_participants) ⬜
 
 > **기능 ID:** F005, F006, F007 (데이터 계층) | **상태:** ⬜ 미시작
 
@@ -534,7 +580,7 @@ types/supabase.ts
 
 ---
 
-#### TASK-020: 참여 신청·취소 서버 액션 + 이벤트 상세 연동 ⬜
+#### TASK-022: 참여 신청·취소 서버 액션 + 이벤트 상세 연동 ⬜
 
 > **기능 ID:** F005, F006 | **상태:** ⬜ 미시작
 
@@ -564,7 +610,7 @@ app/events/[eventId]/page.tsx
 
 ---
 
-#### TASK-021: 참여자 관리 페이지 API 연동 ⬜
+#### TASK-023: 참여자 관리 페이지 API 연동 ⬜
 
 > **기능 ID:** F006, F007 | **상태:** ⬜ 미시작
 
@@ -591,7 +637,7 @@ app/(dashboard)/teams/[teamId]/events/[eventId]/participants/page.tsx
 
 ---
 
-#### TASK-022: 팀 멤버 관리 페이지 API 연동 ⬜
+#### TASK-024: 팀 멤버 관리 페이지 API 연동 ⬜
 
 > **기능 ID:** F002 | **상태:** ⬜ 미시작
 
@@ -617,7 +663,7 @@ app/(dashboard)/teams/[teamId]/members/page.tsx
 
 ---
 
-#### TASK-023: 팀 초대 수락 페이지 API 연동 ⬜
+#### TASK-025: 팀 초대 수락 페이지 API 연동 ⬜
 
 > **기능 ID:** F002 | **상태:** ⬜ 미시작
 
@@ -643,7 +689,7 @@ app/join/[token]/page.tsx
 
 ---
 
-#### TASK-024: 팀 설정 페이지 API 연동 ⬜
+#### TASK-026: 팀 설정 페이지 API 연동 ⬜
 
 > **기능 ID:** F012 | **상태:** ⬜ 미시작
 
@@ -666,7 +712,7 @@ app/(dashboard)/teams/[teamId]/settings/page.tsx
 
 ---
 
-#### TASK-025: Phase 3 통합 테스트 ⬜
+#### TASK-027: Phase 3 통합 테스트 ⬜
 
 > **기능 ID:** F002, F005, F006, F007, F012 | **상태:** ⬜ 미시작
 
@@ -685,7 +731,7 @@ app/(dashboard)/teams/[teamId]/settings/page.tsx
 
 ---
 
-#### TASK-026: DB 스키마 생성 및 RLS 정책 설정 (settlements, settlement_items) ⬜
+#### TASK-028: DB 스키마 생성 및 RLS 정책 설정 (settlements, settlement_items) ⬜
 
 > **기능 ID:** F008, F009 (데이터 계층) | **상태:** ⬜ 미시작
 
@@ -712,7 +758,7 @@ types/supabase.ts
 
 ---
 
-#### TASK-027: 정산 생성 페이지 API 연동 ⬜
+#### TASK-029: 정산 생성 페이지 API 연동 ⬜
 
 > **기능 ID:** F008 | **상태:** ⬜ 미시작
 
@@ -742,7 +788,7 @@ app/(dashboard)/teams/[teamId]/events/[eventId]/settlement/new/page.tsx
 
 ---
 
-#### TASK-028: 정산 현황 페이지 API 연동 ⬜
+#### TASK-030: 정산 현황 페이지 API 연동 ⬜
 
 > **기능 ID:** F009 | **상태:** ⬜ 미시작
 
@@ -770,7 +816,7 @@ app/(dashboard)/teams/[teamId]/events/[eventId]/settlement/page.tsx
 
 ---
 
-#### TASK-029: 전체 서비스 E2E 통합 테스트 ⬜
+#### TASK-031: 전체 서비스 E2E 통합 테스트 ⬜
 
 > **기능 ID:** F001~F012 전체 | **상태:** ⬜ 미시작
 
@@ -785,14 +831,14 @@ app/(dashboard)/teams/[teamId]/events/[eventId]/settlement/page.tsx
 
 ## 전체 진행률 요약
 
-| Phase    | 설명                             | 전체 Task 수 | 완료  | 진행률  |
-| -------- | -------------------------------- | :----------: | :---: | :-----: |
-| Phase 0  | 기반 환경 구축                   |      1       |   1   | 100% ✅ |
-| Phase 1  | 전체 UI/UX 구현 (더미 데이터)    |      14      |   0   |  0% ⬜  |
-| Phase 2  | DB + API 연동 — 팀 + 이벤트      |      3       |   0   |  0% ⬜  |
-| Phase 3  | DB + API 연동 — 참여 + 멤버 관리 |      7       |   0   |  0% ⬜  |
-| Phase 4  | DB + API 연동 — 정산             |      4       |   0   |  0% ⬜  |
-| **합계** |                                  |    **29**    | **1** | **3%**  |
+| Phase    | 설명                             | 전체 Task 수 |  완료  | 진행률  |
+| -------- | -------------------------------- | :----------: | :----: | :-----: |
+| Phase 0  | 기반 환경 구축                   |      1       |   1    | 100% ✅ |
+| Phase 1  | 전체 UI/UX 구현 (더미 데이터)    |      16      |   16   | 100% ✅ |
+| Phase 2  | DB + API 연동 — 팀 + 이벤트      |      3       |   0    |  0% ⬜  |
+| Phase 3  | DB + API 연동 — 참여 + 멤버 관리 |      7       |   0    |  0% ⬜  |
+| Phase 4  | DB + API 연동 — 정산             |      4       |   0    |  0% ⬜  |
+| **합계** |                                  |    **31**    | **17** | **55%** |
 
 ---
 
@@ -800,15 +846,16 @@ app/(dashboard)/teams/[teamId]/events/[eventId]/settlement/page.tsx
 
 | 기능 ID | 기능명                 | UI Task            | API Task                     | 상태 |
 | ------- | ---------------------- | ------------------ | ---------------------------- | ---- |
-| F001    | 팀 생성                | TASK-005           | TASK-017                     | ⬜   |
-| F002    | 팀 초대 링크           | TASK-011, TASK-012 | TASK-022, TASK-023           | ⬜   |
-| F003    | 이벤트 생성/수정       | TASK-007           | TASK-018                     | ⬜   |
-| F004    | 이벤트 공개 공유       | TASK-009           | TASK-018                     | ⬜   |
-| F005    | 참여 신청/취소         | TASK-008, TASK-009 | TASK-020                     | ⬜   |
-| F006    | 대기자 자동 승격       | TASK-010           | TASK-019, TASK-020, TASK-021 | ⬜   |
-| F007    | 참여자 관리 (주최자)   | TASK-010           | TASK-021                     | ⬜   |
-| F008    | 정산 생성              | TASK-014           | TASK-027                     | ⬜   |
-| F009    | 정산 현황 및 납부 확인 | TASK-015           | TASK-028                     | ⬜   |
-| F010    | 대시보드               | TASK-004           | TASK-017                     | ⬜   |
+| F001    | 팀 생성                | TASK-005           | TASK-019                     | ⬜   |
+| F002    | 팀 초대 링크           | TASK-011, TASK-012 | TASK-024, TASK-025           | ⬜   |
+| F003    | 이벤트 생성/수정       | TASK-007           | TASK-020                     | ⬜   |
+| F004    | 이벤트 공개 공유       | TASK-009           | TASK-020                     | ⬜   |
+| F005    | 참여 신청/취소         | TASK-008, TASK-009 | TASK-022                     | ⬜   |
+| F006    | 대기자 자동 승격       | TASK-010           | TASK-021, TASK-022, TASK-023 | ⬜   |
+| F007    | 참여자 관리 (주최자)   | TASK-010           | TASK-023                     | ⬜   |
+| F008    | 정산 생성              | TASK-014           | TASK-029                     | ⬜   |
+| F009    | 정산 현황 및 납부 확인 | TASK-015           | TASK-030                     | ⬜   |
+| F010    | 대시보드               | TASK-004           | TASK-019                     | ⬜   |
 | F011    | 기본 인증              | TASK-001           | TASK-001                     | ✅   |
-| F012    | 팀 설정                | TASK-013           | TASK-024                     | ⬜   |
+| F012    | 팀 설정                | TASK-013           | TASK-026                     | ⬜   |
+| F-ADMIN | 관리자 백오피스        | TASK-016, TASK-017 | -                            | ✅   |
