@@ -19,7 +19,9 @@ export default async function AdminLayout({
       <header className="border-b">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-6">
           <div className="flex items-center gap-3">
-            <span className="font-bold">TeamPlay Admin</span>
+            <Link href="/" className="font-bold hover:opacity-80">
+              TeamPlay Admin
+            </Link>
             <span className="rounded bg-destructive/10 px-1.5 py-0.5 text-xs font-medium text-destructive">
               관리자
             </span>

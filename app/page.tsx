@@ -80,7 +80,9 @@ export default function Home() {
       {/* 헤더 */}
       <header className="border-b">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-5">
-          <span className="text-lg font-bold">TeamPlay</span>
+          <Link href="/" className="text-lg font-bold">
+            TeamPlay
+          </Link>
           <div className="flex items-center gap-3">
             <ThemeSwitcher />
             <Suspense

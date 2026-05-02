@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 
+import { useRouter } from "next/navigation";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import { createEvent, updateEvent } from "@/app/actions/events";
 import { Button } from "@/components/ui/button";
@@ -43,6 +46,7 @@ interface EventFormProps {
 }
 
 export function EventForm({ teamId, defaultValues, eventId }: EventFormProps) {
+  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isEditMode = !!eventId;
 
@@ -67,10 +71,36 @@ export function EventForm({ teamId, defaultValues, eventId }: EventFormProps) {
   const onSubmit = async (values: EventFormValues) => {
     setIsSubmitting(true);
     try {
+      // EventFormValues → FormData 변환
+      const formData = new FormData();
+      formData.set("title", values.title);
+      if (values.description) formData.set("description", values.description);
+      if (values.location) formData.set("location", values.location);
+      formData.set("startsAt", values.startsAt.toISOString());
+      formData.set("endsAt", values.endsAt.toISOString());
+      formData.set("isUnlimited", String(values.isUnlimited));
+      if (!values.isUnlimited && values.maxParticipants !== null) {
+        formData.set("maxParticipants", String(values.maxParticipants));
+      }
+      formData.set("entryFee", String(values.entryFee));
+      formData.set("status", values.status);
+
       if (isEditMode) {
-        await updateEvent(eventId, values);
+        const result = await updateEvent(eventId, formData);
+        if ("error" in result) {
+          toast.error(result.error);
+          return;
+        }
+        toast.success("이벤트가 수정되었습니다.");
+        router.push(`/teams/${teamId}/events/${eventId}`);
       } else {
-        await createEvent(teamId, values);
+        const result = await createEvent(teamId, formData);
+        if ("error" in result) {
+          toast.error(result.error);
+          return;
+        }
+        toast.success("이벤트가 생성되었습니다.");
+        router.push(`/teams/${teamId}/events/${result.eventId}`);
       }
     } finally {
       setIsSubmitting(false);

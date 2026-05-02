@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 
+import { useRouter } from "next/navigation";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import { createTeam } from "@/app/actions/teams";
 import { Button } from "@/components/ui/button";
@@ -36,6 +39,7 @@ const sportTypeOptions: { value: SportType; label: string }[] = [
 ];
 
 export function TeamForm() {
+  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<TeamFormValues>({
@@ -50,7 +54,22 @@ export function TeamForm() {
   const onSubmit = async (values: TeamFormValues) => {
     setIsSubmitting(true);
     try {
-      await createTeam(values);
+      // FormData로 변환하여 서버 액션 호출
+      const formData = new FormData();
+      formData.set("name", values.name);
+      formData.set("sportType", values.sportType);
+      if (values.description) formData.set("description", values.description);
+
+      const result = await createTeam(formData);
+
+      if ("error" in result) {
+        toast.error(result.error);
+        return;
+      }
+
+      // 성공 시 팀 홈으로 이동
+      toast.success("팀이 생성되었습니다.");
+      router.push(`/teams/${result.teamId}`);
     } finally {
       setIsSubmitting(false);
     }

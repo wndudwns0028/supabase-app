@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import { updateTeam } from "@/app/actions/teams";
 import { Button } from "@/components/ui/button";
@@ -53,7 +54,20 @@ export function TeamSettingsForm({
   const onSubmit = async (values: TeamFormValues) => {
     setIsSubmitting(true);
     try {
-      await updateTeam(teamId, values);
+      // TeamFormValues → FormData 변환
+      const formData = new FormData();
+      formData.set("name", values.name);
+      formData.set("sportType", values.sportType);
+      if (values.description) formData.set("description", values.description);
+
+      const result = await updateTeam(teamId, formData);
+
+      if ("error" in result) {
+        toast.error(result.error);
+        return;
+      }
+
+      toast.success("팀 정보가 저장되었습니다.");
     } finally {
       setIsSubmitting(false);
     }

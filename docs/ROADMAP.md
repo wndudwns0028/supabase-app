@@ -445,26 +445,26 @@ components/admin/settlements-table.tsx
 
 ---
 
-### Phase 2: DB 구축 + API 연동 — 팀 + 이벤트
+### Phase 2: DB 구축 + API 연동 — 팀 + 이벤트 ✅
 
 **완료 기준:** 팀 생성 → 이벤트 생성 → 공유 링크 전달 동작 확인
 
 ---
 
-#### TASK-018: DB 스키마 생성 및 RLS 정책 설정 (teams, team_members, events) ⬜
+#### TASK-018: DB 스키마 생성 및 RLS 정책 설정 (teams, team_members, events) ✅
 
-> **기능 ID:** F001, F003 (데이터 계층) | **상태:** ⬜ 미시작
+> **기능 ID:** F001, F003 (데이터 계층) | **상태:** ✅ 완료
 
-- Supabase 마이그레이션 파일 작성 및 적용
-  - `teams` 테이블 생성 (`id`, `name`, `description`, `sport_type`, `invite_token`, `created_by`, `created_at`, `updated_at`)
-  - `team_members` 테이블 생성 (`id`, `team_id`, `user_id`, `role`, `joined_at`)
-  - `events` 테이블 생성 (`id`, `team_id`, `created_by`, `title`, `description`, `location`, `starts_at`, `ends_at`, `max_participants`, `entry_fee`, `status`, `created_at`, `updated_at`)
-- RLS 정책 설정
-  - `teams`: 멤버만 조회, 생성자만 수정/삭제
-  - `team_members`: 팀 멤버만 조회, 본인 레코드만 삽입/삭제
-  - `events`: 팀 멤버만 조회, organizer만 생성/수정/삭제, 공개 이벤트는 비인증 조회 허용
-- `invite_token` unique 인덱스 생성
-- Supabase CLI로 TypeScript 타입 재생성 (`types/supabase.ts`)
+- ✅ Supabase 마이그레이션 파일 작성 및 적용
+  - ✅ `teams` 테이블 생성 (`id`, `name`, `description`, `sport_type`, `invite_token`, `created_by`, `created_at`, `updated_at`)
+  - ✅ `team_members` 테이블 생성 (`id`, `team_id`, `user_id`, `role`, `joined_at`)
+  - ✅ `events` 테이블 생성 (`id`, `team_id`, `created_by`, `title`, `description`, `location`, `starts_at`, `ends_at`, `max_participants`, `entry_fee`, `status`, `created_at`, `updated_at`)
+- ✅ RLS 정책 설정
+  - ✅ `teams`: 멤버만 조회, 생성자만 수정/삭제
+  - ✅ `team_members`: 팀 멤버만 조회, 본인 레코드만 삽입/삭제
+  - ✅ `events`: 팀 멤버만 조회, organizer만 생성/수정/삭제, 공개 이벤트는 비인증 조회 허용
+- ✅ `invite_token` unique 인덱스 생성
+- ✅ Supabase CLI로 TypeScript 타입 재생성 (`types/supabase.ts`)
 
 **관련 파일/경로**
 
@@ -475,24 +475,24 @@ types/supabase.ts
 
 **테스트 체크리스트**
 
-- [ ] Supabase 대시보드에서 테이블 생성 확인
-- [ ] RLS 정책 — 비인증 사용자 teams 조회 차단 확인
-- [ ] RLS 정책 — organizer가 아닌 멤버의 이벤트 수정 차단 확인
-- [ ] `invite_token` 유니크 제약 조건 동작 확인
+- [x] Supabase 대시보드에서 테이블 생성 확인
+- [x] RLS 정책 — 비인증 사용자 teams 조회 차단 확인
+- [x] RLS 정책 — organizer가 아닌 멤버의 이벤트 수정 차단 확인
+- [x] `invite_token` 유니크 제약 조건 동작 확인
 
 ---
 
-#### TASK-019: 팀 서버 액션 + 대시보드 API 연동 ⬜
+#### TASK-019: 팀 서버 액션 + 대시보드 API 연동 ✅
 
-> **기능 ID:** F001, F010 | **상태:** ⬜ 미시작
+> **기능 ID:** F001, F010 | **상태:** ✅ 완료
 
-- `app/actions/teams.ts` 서버 액션 구현
-  - `createTeam(formData)` — 팀 생성, `invite_token` 자동 발급 (`crypto.randomUUID()`)
-  - `getMyTeams()` — 내가 속한 팀 목록 조회
-  - `getTeamById(teamId)` — 팀 상세 조회 (멤버 권한 확인)
-- 대시보드 페이지 더미 데이터 → 실제 Supabase 데이터 교체
-- 팀 생성 폼 실제 저장 연동, 성공 후 팀 홈 페이지로 리디렉션
-- 에러 핸들링 및 toast 알림
+- ✅ `app/actions/teams.ts` 서버 액션 구현
+  - ✅ `createTeam(formData)` — 팀 생성, `invite_token` 자동 발급 (`crypto.randomUUID()`)
+  - ✅ `getMyTeams()` — 내가 속한 팀 목록 조회
+  - ✅ `getTeamById(teamId)` — 팀 상세 조회 (멤버 권한 확인)
+- ✅ 대시보드 페이지 더미 데이터 → 실제 Supabase 데이터 교체
+- ✅ 팀 생성 폼 실제 저장 연동, 성공 후 팀 홈 페이지로 리디렉션
+- ✅ 에러 핸들링 및 toast 알림
 
 **관련 파일/경로**
 
@@ -504,26 +504,26 @@ app/(dashboard)/teams/new/page.tsx
 
 **테스트 체크리스트**
 
-- [ ] Playwright: 로그인 후 팀 생성 → 팀 홈 페이지 리디렉션 확인
-- [ ] Playwright: 대시보드에서 생성된 팀 카드 표시 확인
-- [ ] Playwright: 팀 이름 필수 검증 — 빈 값 제출 시 에러 메시지 표시 확인
-- [ ] Playwright: 팀 생성 후 `invite_token` DB 자동 생성 확인
-- [ ] RLS 검증: 다른 사용자의 팀이 내 대시보드에 노출되지 않는지 확인
+- [x] Playwright: 로그인 후 팀 생성 → 팀 홈 페이지 리디렉션 확인
+- [x] Playwright: 대시보드에서 생성된 팀 카드 표시 확인
+- [x] Playwright: 팀 이름 필수 검증 — 빈 값 제출 시 에러 메시지 표시 확인
+- [x] Playwright: 팀 생성 후 `invite_token` DB 자동 생성 확인
+- [x] RLS 검증: 다른 사용자의 팀이 내 대시보드에 노출되지 않는지 확인
 
 ---
 
-#### TASK-020: 이벤트 서버 액션 + 팀 홈 API 연동 ⬜
+#### TASK-020: 이벤트 서버 액션 + 팀 홈 API 연동 ✅
 
-> **기능 ID:** F003, F004 | **상태:** ⬜ 미시작
+> **기능 ID:** F003, F004 | **상태:** ✅ 완료
 
-- `app/actions/events.ts` 서버 액션 구현
-  - `createEvent(teamId, formData)` — 이벤트 생성 (organizer 권한 확인)
-  - `updateEvent(eventId, formData)` — 이벤트 수정 (organizer 권한 확인)
-  - `getEventsByTeam(teamId)` — 팀 이벤트 목록 조회
-  - `getEventById(eventId)` — 이벤트 상세 조회 (공개 접근 지원)
-- 팀 홈·이벤트 상세·이벤트 생성·수정 페이지 더미 데이터 → 실제 데이터 교체
-- 이벤트 공개 공유 페이지 — 비인증 Supabase 클라이언트로 공개 조회 연동
-- `revalidatePath()` 적용으로 서버 캐시 갱신
+- ✅ `app/actions/events.ts` 서버 액션 구현
+  - ✅ `createEvent(teamId, formData)` — 이벤트 생성 (organizer 권한 확인)
+  - ✅ `updateEvent(eventId, formData)` — 이벤트 수정 (organizer 권한 확인)
+  - ✅ `getEventsByTeam(teamId)` — 팀 이벤트 목록 조회
+  - ✅ `getEventById(eventId)` — 이벤트 상세 조회 (공개 접근 지원)
+- ✅ 팀 홈·이벤트 상세·이벤트 생성·수정 페이지 더미 데이터 → 실제 데이터 교체
+- ✅ 이벤트 공개 공유 페이지 — 비인증 Supabase 클라이언트로 공개 조회 연동
+- ✅ `revalidatePath()` 적용으로 서버 캐시 갱신
 
 **관련 파일/경로**
 
@@ -537,11 +537,11 @@ app/events/[eventId]/page.tsx
 
 **테스트 체크리스트**
 
-- [ ] Playwright: organizer로 이벤트 생성 → 팀 홈 목록에 표시 확인
-- [ ] Playwright: 이벤트 수정 후 상세 페이지 데이터 갱신 확인
-- [ ] Playwright: 비로그인 상태로 공개 공유 URL 접근 → 이벤트 정보 조회 확인
-- [ ] Playwright: member 계정으로 이벤트 생성 시도 → 403 또는 리디렉션 확인
-- [ ] RLS 검증: 다른 팀의 이벤트 조회 차단 확인
+- [x] Playwright: organizer로 이벤트 생성 → 팀 홈 목록에 표시 확인
+- [x] Playwright: 이벤트 수정 후 상세 페이지 데이터 갱신 확인
+- [x] Playwright: 비로그인 상태로 공개 공유 URL 접근 → 이벤트 정보 조회 확인
+- [x] Playwright: member 계정으로 이벤트 생성 시도 → 403 또는 리디렉션 확인
+- [x] RLS 검증: 다른 팀의 이벤트 조회 차단 확인
 
 ---
 
@@ -835,10 +835,10 @@ app/(dashboard)/teams/[teamId]/events/[eventId]/settlement/page.tsx
 | -------- | -------------------------------- | :----------: | :----: | :-----: |
 | Phase 0  | 기반 환경 구축                   |      1       |   1    | 100% ✅ |
 | Phase 1  | 전체 UI/UX 구현 (더미 데이터)    |      16      |   16   | 100% ✅ |
-| Phase 2  | DB + API 연동 — 팀 + 이벤트      |      3       |   0    |  0% ⬜  |
+| Phase 2  | DB + API 연동 — 팀 + 이벤트      |      3       |   3    | 100% ✅ |
 | Phase 3  | DB + API 연동 — 참여 + 멤버 관리 |      7       |   0    |  0% ⬜  |
 | Phase 4  | DB + API 연동 — 정산             |      4       |   0    |  0% ⬜  |
-| **합계** |                                  |    **31**    | **17** | **55%** |
+| **합계** |                                  |    **31**    | **20** | **65%** |
 
 ---
 
@@ -846,16 +846,16 @@ app/(dashboard)/teams/[teamId]/events/[eventId]/settlement/page.tsx
 
 | 기능 ID | 기능명                 | UI Task            | API Task                     | 상태 |
 | ------- | ---------------------- | ------------------ | ---------------------------- | ---- |
-| F001    | 팀 생성                | TASK-005           | TASK-019                     | ⬜   |
+| F001    | 팀 생성                | TASK-005           | TASK-019                     | ✅   |
 | F002    | 팀 초대 링크           | TASK-011, TASK-012 | TASK-024, TASK-025           | ⬜   |
-| F003    | 이벤트 생성/수정       | TASK-007           | TASK-020                     | ⬜   |
-| F004    | 이벤트 공개 공유       | TASK-009           | TASK-020                     | ⬜   |
+| F003    | 이벤트 생성/수정       | TASK-007           | TASK-020                     | ✅   |
+| F004    | 이벤트 공개 공유       | TASK-009           | TASK-020                     | ✅   |
 | F005    | 참여 신청/취소         | TASK-008, TASK-009 | TASK-022                     | ⬜   |
 | F006    | 대기자 자동 승격       | TASK-010           | TASK-021, TASK-022, TASK-023 | ⬜   |
 | F007    | 참여자 관리 (주최자)   | TASK-010           | TASK-023                     | ⬜   |
 | F008    | 정산 생성              | TASK-014           | TASK-029                     | ⬜   |
 | F009    | 정산 현황 및 납부 확인 | TASK-015           | TASK-030                     | ⬜   |
-| F010    | 대시보드               | TASK-004           | TASK-019                     | ⬜   |
+| F010    | 대시보드               | TASK-004           | TASK-019                     | ✅   |
 | F011    | 기본 인증              | TASK-001           | TASK-001                     | ✅   |
 | F012    | 팀 설정                | TASK-013           | TASK-026                     | ⬜   |
 | F-ADMIN | 관리자 백오피스        | TASK-016, TASK-017 | -                            | ✅   |
